@@ -13,7 +13,7 @@ Runs at the slots 08:00, 12:00, 16:00, 20:00 Israel time (first week, 4 posts/da
 - `stage`: only `scheduled` docs may be published (user tapped ✓ מאשר). Skip `paused: true`.
 - `postType`: `reel` (default if missing) | `carousel` | `image`.
 - reel: `video` = artifact file path (e.g. `videos/r2-v6.mp4`).
-- carousel/image: `images` = list of artifact file paths (JPEG 1080x1350).
+- carousel/image: `images` = list of public JPEG URLs already hosted in this repo (carousels/<id>/<n>.jpg) — use them directly, no download needed.
 - `caption`, `date` (YYYY-MM-DD), `time` (HH:MM, Israel), `queuedAt`.
 - After publishing write: `stage: "published"`, `log.published` (YYYY-MM-DD), `igMediaId`, `permalink`, `publishedBy: "claude"`, `publishedAt` (ISO), `publishError: ""`.
 - On failure write `publishError` = short Hebrew reason, leave stage `scheduled`.
