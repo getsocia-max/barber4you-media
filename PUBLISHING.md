@@ -1,12 +1,12 @@
 # Barber4You — Instagram publishing runbook
 
 Runs at the slots 08:00, 12:00, 16:00, 20:00 Israel time (first week, 4 posts/day; from 15.11 back to 2/day: 12:00, 19:30).
-Extra runs on Friday 14:00 and Saturday 18:00 (second scheduled task).
+Extra runs on Friday 14:00 and Saturday 18:00 + 21:00 (second scheduled task trig_01YM73v8PDQDWohGkSpPCRMp).
 
 ## Shabbat rule (user, 8.11.2026, overrides everything below)
 - Friday: nothing is published after 14:00. Saturday: nothing is published before 18:00.
 - A run whose slot is Friday after 14:00 or Saturday before 18:00 does nothing (no publish, no fallback pick, no stats): end quietly and resolve.
-- Never slot a doc into Friday after 14:00 or Saturday before 18:00. Allowed Fri slots: 08:00, 12:00, 14:00. Sat: 18:00, 20:00 (from 15.11: 19:30).
+- Never slot a doc into Friday after 14:00 or Saturday before 18:00. Allowed Fri slots: 08:00, 12:00, 14:00. Sat: 18:00, 20:00, 21:00 (from 15.11: 19:30).
 
 ## Pieces
 - Instagram: Windsor.ai MCP, connector `instagram`, account `17841474787124501` (@barber4you.il).
