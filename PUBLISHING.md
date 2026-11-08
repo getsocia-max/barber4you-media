@@ -28,3 +28,8 @@ Runs at the slots 08:00, 12:00, 16:00, 20:00 Israel time (first week, 4 posts/da
 6. Find the permalink: `get_data` instagram fields media_id, media_permalink, date_preset last_3dT (no force_refresh on the free plan; if not there yet, use https://www.instagram.com/barber4you.il/ and fill it on the next run).
 7. Update the doc (fields above, pinned with if_version).
 8. Slot the remaining scheduled docs without date/time into the next free slots (write date + time) and pre-host their media so the next run doesn't wait. On the 08:00 run, refresh `stats` on docs published in the last 14 days (media_views, media_reach, media_reel_avg_watch_time ms→sec, media_reel_skip_rate, media_saved, media_shares).
+
+## Run hygiene
+- First, a health check: Windsor `get_data` instagram fields [followers_count] for account 17841474787124501. If the Windsor tools are missing or fail, post ONE short Hebrew message saying publishing is blocked (Windsor not reachable) and stop.
+- If nothing was published and nothing failed, do not post a message: end quietly (no_reply_needed) and resolve the thread.
+- After a publish, post one short Hebrew line with the permalink, then resolve the thread.
