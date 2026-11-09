@@ -1,12 +1,12 @@
 # Barber4You — Instagram publishing runbook
 
-Runs at the slots 08:00, 12:00, 16:00, 20:00 Israel time (first week, 4 posts/day; from 15.11 back to 2/day: 12:00, 19:30).
+Runs at the slots 08:00, 12:00, 16:00, 18:00, 20:00 Israel time (user 9.11.2026: 5 posts/day, ongoing; 18:00 Sun-Thu runs from a separate task, Sat 18:00 from the Fri/Sat task).
 Extra runs on Friday 14:00 and Saturday 18:00 + 21:00 (second scheduled task trig_01YM73v8PDQDWohGkSpPCRMp).
 
 ## Shabbat rule (user, 8.11.2026, overrides everything below)
 - Friday: nothing is published after 14:00. Saturday: nothing is published before 18:00.
 - A run whose slot is Friday after 14:00 or Saturday before 18:00 does nothing (no publish, no fallback pick, no stats): end quietly and resolve.
-- Never slot a doc into Friday after 14:00 or Saturday before 18:00. Allowed Fri slots: 08:00, 12:00, 14:00. Sat: 18:00, 20:00, 21:00 (from 15.11: 19:30).
+- Never slot a doc into Friday after 14:00 or Saturday before 18:00. Allowed Fri slots: 08:00, 12:00, 14:00. Sat: 18:00, 20:00, 21:00.
 
 ## Pieces
 - Instagram: Windsor.ai MCP, connector `instagram`, account `17841474787124501` (@barber4you.il).
@@ -26,7 +26,7 @@ Extra runs on Friday 14:00 and Saturday 18:00 + 21:00 (second scheduled task tri
 - Stats: `stats` = {views, reach, avgWatchSec, skipRate, saves, shares, updatedAt: "D.M HH:MM"}.
 
 ## Each run
-0. Work out this run's slot (next full hour, or 19:30/14:00/18:00 where those apply). Apply the Shabbat rule first.
+0. Work out this run's slot (the next full hour). Apply the Shabbat rule first.
 1. List `reels`. Candidates = stage `scheduled`, not paused.
 2. Pick the one whose date+time equals this slot. If none, the candidate with the oldest `queuedAt`. If no candidates: refresh stats (step 8) and stop.
 3. Host media: download from the dashboard with Artifact read (`path`), copy into this repo (`reels/<file>` or `carousels/<id>/<n>.jpg`), commit, push. If it was not already hosted, wait ~2 minutes (background sleep) for Pages.
