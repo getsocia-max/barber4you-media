@@ -38,7 +38,10 @@ Scheduled tasks: main task 07:52/11:52/15:52/19:52 daily; 18:00 task 17:52 Sun-T
 2. Pick the one whose date is today and whose time falls in this slot (same slot as the exact time; a leftover round HH:00 for this hour also counts). If none, the candidate with the oldest `queuedAt`. Publish at today's exact time for this slot, not at the round hour. If no candidates: refresh stats (step 8) and stop.
 3. Host media: download from the dashboard with Artifact read (`path`), copy into this repo (`reels/<file>` or `carousels/<id>/<n>.jpg`), commit, push. If it was not already hosted, wait ~2 minutes (background sleep) for Pages.
 4. Re-read the doc. If stage is no longer `scheduled` (user tapped "ביטול אישור"), stop.
-5. Publish with Windsor `execute_action`. Captions: never a price ("תשלום חד פעמי" only).
+5. Publish with Windsor `execute_action`. Caption check first (human-style rules, /mnt/project-files/learning/human-style.md, user 9.11.2026):
+   - at most 5 hashtags (Instagram limit); if more, keep the first 5. Remove a lone "." line before the hashtags.
+   - no "—" long dash. Otherwise publish the caption exactly as approved; don't rewrite it.
+   - the launch price (1,300 ₪ + מע"מ, one-time) is allowed in captions (user 9.11.2026).
 6. Find the permalink: `get_data` instagram fields media_id, media_permalink, date_preset last_3dT (no force_refresh on the free plan; if not there yet, use https://www.instagram.com/barber4you.il/ and fill it on the next run).
 7. Update the doc (fields above, pinned with if_version).
 8. Slot the remaining scheduled docs without date/time into the next free slots (write date + the exact non-round time from tools/slot_times.py; also fix any future scheduled doc that still has a round time) and pre-host their media so the next run doesn't wait. On the 08:00 run, refresh `stats` on docs published in the last 14 days (media_views, media_reach, media_reel_avg_watch_time ms→sec, media_reel_skip_rate, media_saved, media_shares).
