@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Windsor_ai__execute_action",
+      "Bash(git clone --depth 1 https://github.com/getsocia-max/barber4you-media:*)",
+      "Bash(python3 tools/slot_times.py:*)"
+    ]
+  }
+}
