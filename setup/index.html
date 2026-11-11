@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Barber4You | שאלון הקמה</title>
+<meta name="description" content="כמה פרטים שצריך כדי להקים לך את האפליקציה ואת העוזר בוואטסאפ">
+<style>
+:root{--bg:#0f1311;--card:#171d1a;--line:#26302b;--ink:#eef2ef;--mute:#9aa8a1;--acc:#2fbf71;--acc2:#1f8a51;--warn:#f2b84b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;padding:0 16px 120px}
+.wrap{max-width:640px;margin:0 auto}
+header{padding:28px 0 8px}
+h1{font-size:24px;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 14px}
+.bar{position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5}
+.track{height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--acc);transition:width .3s}
+.pct{font-size:13px;color:var(--mute);margin-top:4px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:16px;font-weight:700;font-size:17px;display:flex;gap:10px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary .n{background:var(--line);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:14px;flex:none}
+summary .ok{margin-inline-start:auto;font-size:13px;color:var(--mute);font-weight:400}
+details.done summary .n{background:var(--acc);color:#04130b}
+.body{padding:0 16px 16px}
+label{display:block;font-weight:600;margin:14px 0 4px}
+.hint{display:block;font-weight:400;color:var(--mute);font-size:13px}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit}
+textarea{min-height:84px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparent}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{margin:0;font-weight:400;border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;background:#0c100e}
+.chips input{display:none}
+.chips label:has(input:checked){background:var(--acc);border-color:var(--acc);color:#04130b;font-weight:600}
+.day{display:grid;grid-template-columns:62px 1fr;gap:8px;align-items:center;margin:6px 0}
+.day b{font-weight:600}
+.svc{display:grid;grid-template-columns:1fr 74px 74px 34px;gap:6px;margin:6px 0}
+.svc input{padding:9px 8px}
+.svc button,.add{background:none;border:1px solid var(--line);color:var(--mute);border-radius:10px;cursor:pointer;font:inherit}
+.add{padding:9px 14px;margin-top:6px;color:var(--ink)}
+.colhead{display:grid;grid-template-columns:1fr 74px 74px 34px;gap:6px;font-size:12px;color:var(--mute)}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatches label{margin:0;width:40px;height:40px;border-radius:50%;cursor:pointer;border:3px solid transparent}
+.swatches input{display:none}
+.swatches label:has(input:checked){border-color:#fff}
+.box{background:#0c100e;border:1px dashed var(--line);border-radius:12px;padding:12px 14px;margin-top:12px}
+.box li{margin:4px 0}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin:10px 0}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--acc)}
+.foot{position:fixed;bottom:0;inset-inline:0;background:linear-gradient(transparent,var(--bg) 30%);padding:24px 16px calc(14px + env(safe-area-inset-bottom))}
+.foot .wrap{display:flex;gap:8px}
+.btn{flex:1;border:0;border-radius:12px;padding:15px;font:inherit;font-weight:700;cursor:pointer}
+.go{background:var(--acc);color:#04130b}
+.sec{background:var(--card);color:var(--ink);border:1px solid var(--line);flex:0 0 auto;padding:15px 16px}
+.saved{font-size:13px;color:var(--mute);text-align:center;margin:18px 0}
+.toast{position:fixed;top:16px;inset-inline:16px;max-width:520px;margin:auto;background:var(--acc);color:#04130b;padding:12px 16px;border-radius:12px;font-weight:700;display:none;z-index:9;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1 id="hello">אהלן! בוא נקים לך את האפליקציה</h1>
+  <p class="sub">כמה פרטים שאני צריך כדי לבנות לך הכל. אין לחץ, יש לך יום-יומיים. הכל נשמר אוטומטית בטלפון, אפשר לסגור ולחזור. מה שלא בטוח, תדלג ונסגור בטלפון.</p>
+</header>
+<div class="bar"><div class="track"><div class="fill" id="fill"></div></div><div class="pct" id="pct"></div></div>
+
+<form id="f" autocomplete="on">
+
+<details open data-sec="1"><summary><span class="n">1</span>העסק שלך<span class="ok"></span></summary><div class="body">
+  <label>שם פרטי<span class="hint">איך העוזר יקרא לך מול הלקוחות ("התור אצל אבי")</span></label><input type="text" name="first" data-req>
+  <label>שם משפחה</label><input type="text" name="last" data-req>
+  <label>שם המספרה בעברית<span class="hint">למשל: המספרה של אבי</span></label><input type="text" name="biz_he" data-req>
+  <label>שם המספרה באנגלית<span class="hint">אם אין, נמציא ביחד. למשל: Avi Barber</span></label><input type="text" name="biz_en">
+  <label>כתובת המספרה<span class="hint">רחוב, מספר ועיר, כמו שלקוח מכניס לוויז</span></label><input type="text" name="address" data-req>
+  <label>הוראות הגעה או חניה<span class="hint">למשל: כניסה מהחצר, חניה ברחוב</span></label><input type="text" name="parking">
+  <label>הנייד שלך</label><input type="tel" name="phone" data-req>
+  <label>מייל</label><input type="email" name="email">
+  <label>העמוד שלך באינסטגרם</label><input type="text" name="ig" placeholder="@">
+  <label>סוג העסק</label>
+  <div class="chips" data-req-group="biztype">
+    <label><input type="radio" name="biztype" value="עוסק פטור">עוסק פטור</label>
+    <label><input type="radio" name="biztype" value="עוסק מורשה">עוסק מורשה</label>
+    <label><input type="radio" name="biztype" value="חברה">חברה בע"מ</label>
+    <label><input type="radio" name="biztype" value="עוד לא פתחתי">עוד לא פתחתי</label>
+  </div>
+  <label>מספר העוסק<span class="hint">צריך אותו לאישור של וואטסאפ ולסליקה</span></label><input type="text" name="biznum" inputmode="numeric">
+</div></details>
+
+<details data-sec="2"><summary><span class="n">2</span>איך זה נראה<span class="ok"></span></summary><div class="body">
+  <label>צבע ראשי של המותג</label>
+  <div class="swatches">
+    <label style="background:#1F5B4E"><input type="radio" name="color" value="ירוק כהה"></label>
+    <label style="background:#2B3A67"><input type="radio" name="color" value="כחול"></label>
+    <label style="background:#7A2E2E"><input type="radio" name="color" value="בורדו"></label>
+    <label style="background:#111111;border-color:#333"><input type="radio" name="color" value="שחור"></label>
+    <label style="background:#B8892B"><input type="radio" name="color" value="זהב"></label>
+    <label style="background:#5B3A8C"><input type="radio" name="color" value="סגול"></label>
+    <label style="background:#C2552D"><input type="radio" name="color" value="כתום"></label>
+  </div>
+  <label>או תכתוב צבע אחר / "כמו הלוגו"</label><input type="text" name="color_other">
+  <label>יש לך לוגו?</label>
+  <div class="chips">
+    <label><input type="radio" name="logo" value="יש, אשלח">יש, אשלח</label>
+    <label><input type="radio" name="logo" value="אין, תעצב לי משהו פשוט">אין, תעצב לי משהו פשוט</label>
+  </div>
+  <label>שם קצר לאייקון בטלפון<span class="hint">מופיע מתחת לאייקון, עד 12 תווים</span></label><input type="text" name="short" maxlength="14">
+  <div class="box"><b>לשלוח לי בוואטסאפ (תמונות, לא כאן):</b>
+    <ul><li>לוגו, באיכות הכי טובה שיש (אם יש)</li><li>6 עד 15 תמונות של תספורות שלך לגלריה</li><li>תמונה של המספרה ותמונה שלך (לא חובה)</li><li>צילומי מסך של ביקורות טובות מלקוחות (לא חובה)</li></ul></div>
+</div></details>
+
+<details data-sec="3"><summary><span class="n">3</span>שירותים ומחירים<span class="ok"></span></summary><div class="body">
+  <span class="hint">כל שירות: שם, מחיר בשקלים, וכמה דקות הוא לוקח. אפשר לשנות הכל אחר כך באפליקציה.</span>
+  <div class="colhead" style="margin-top:10px"><span>שירות</span><span>מחיר ₪</span><span>דקות</span><span></span></div>
+  <div id="svcs"></div>
+  <button type="button" class="add" id="addSvc">+ עוד שירות</button>
+  <label>הערות על מחירים<span class="hint">למשל: ילדים עד גיל 12, חיילים בהנחה, מחיר שונה בשישי</span></label><textarea name="price_notes"></textarea>
+</div></details>
+
+<details data-sec="4"><summary><span class="n">4</span>שעות ותורים<span class="ok"></span></summary><div class="body">
+  <span class="hint">לכל יום: מתי פותח ומתי סוגר. יום חופש? תשאיר ריק. הפסקה? תכתוב, למשל 09:00-13:00, 15:00-20:00</span>
+  <div id="days" style="margin-top:8px"></div>
+  <label>כמה זמן לפני אפשר לקבוע תור?<span class="hint">למשל: עד שבועיים קדימה</span></label><input type="text" name="ahead">
+  <label>עד כמה זמן לפני התור לקוח יכול לבטל או להזיז?</label>
+  <div class="chips">
+    <label><input type="radio" name="cancel" value="שעתיים">שעתיים</label>
+    <label><input type="radio" name="cancel" value="3 שעות">3 שעות</label>
+    <label><input type="radio" name="cancel" value="יום לפני">יום לפני</label>
+    <label><input type="radio" name="cancel" value="מתי שבא לו">מתי שבא לו</label>
+  </div>
+  <label>מה עושים עם לקוח שלא הגיע?</label><input type="text" name="noshow" placeholder="למשל: אזהרה בפעם הראשונה, אחר כך חוסם">
+  <label>בערך כמה לקוחות יש לך בשבוע?</label><input type="text" name="clients_week" inputmode="numeric">
+</div></details>
+
+<details data-sec="5"><summary><span class="n">5</span>העוזר בוואטסאפ<span class="ok"></span></summary><div class="body">
+  <label>איך לקרוא לעוזר?</label>
+  <div class="chips">
+    <label><input type="radio" name="asst" value="יובל">יובל</label>
+    <label><input type="radio" name="asst" value="שם אחר">שם אחר (תכתוב למטה)</label>
+  </div>
+  <input type="text" name="asst_other" placeholder="השם שבחרת" style="margin-top:8px">
+  <label>איך הוא מדבר עם הלקוחות?</label>
+  <div class="chips">
+    <label><input type="radio" name="tone" value="חברי וקליל">חברי וקליל</label>
+    <label><input type="radio" name="tone" value="מנומס ועניני">מנומס ועניני</label>
+    <label><input type="radio" name="tone" value="כמו שאני מדבר">כמו שאני מדבר</label>
+  </div>
+  <label>מה הלקוחות הכי שואלים אותך?<span class="hint">ומה אתה עונה. למשל חניה, אשראי, תורים לילדים, תור דחוף</span></label><textarea name="faq"></textarea>
+  <label>מה אתה אוהב ומה ממש לא?<span class="hint">למשל: לא רוצה תורים אחרי 21:00, לא מוכן לקבוע לאותו יום, אוהב שמאשרים יום לפני</span></label><textarea name="likes"></textarea>
+  <label>מה העוזר לא אמור להגיד או לעשות?</label><textarea name="donts"></textarea>
+  <div class="box"><b>חשוב:</b> העוזר צריך <b>מספר טלפון נפרד</b>, לא הוואטסאפ האישי שלך. הכי פשוט: סים חדש וזול (בערך 10-30 ₪ לחודש) או מספר וירטואלי. אם יש לך מספר כזה, תכתוב אותו:
+    <input type="tel" name="bot_phone" placeholder="מספר לעוזר (אם יש)" style="margin-top:8px"></div>
+</div></details>
+
+<details data-sec="6"><summary><span class="n">6</span>תשלומים וחשבוניות<span class="ok"></span></summary><div class="body">
+  <label>איך משלמים לך היום?</label>
+  <div class="chips">
+    <label><input type="checkbox" name="pay" value="מזומן">מזומן</label>
+    <label><input type="checkbox" name="pay" value="ביט">ביט</label>
+    <label><input type="checkbox" name="pay" value="פייבוקס">פייבוקס</label>
+    <label><input type="checkbox" name="pay" value="אשראי">אשראי</label>
+    <label><input type="checkbox" name="pay" value="העברה">העברה</label>
+  </div>
+  <label>יש לך היום חשבון סליקה או חשבוניות?<span class="hint">למשל גרואו (משולם), איזיקאונט, חשבונית ירוקה. תכתוב איזה</span></label><input type="text" name="billing">
+  <label>מתי לשלוח תזכורת למי שלא שילם?<span class="hint">למשל: ב-21:00 באותו יום</span></label><input type="text" name="pay_remind">
+  <label>באילו שעות מותר לשלוח ללקוחות הודעות?<span class="hint">למשל: 09:00 עד 21:00</span></label><input type="text" name="active_hours">
+  <label>מייל של רואה החשבון (אם יש)</label><input type="email" name="accountant">
+</div></details>
+
+<details data-sec="7"><summary><span class="n">7</span>מה יש לך היום<span class="ok"></span></summary><div class="body">
+  <label>איך לקוחות קובעים אצלך היום?</label>
+  <div class="chips">
+    <label><input type="checkbox" name="booking_now" value="וואטסאפ">וואטסאפ</label>
+    <label><input type="checkbox" name="booking_now" value="טלפון">טלפון</label>
+    <label><input type="checkbox" name="booking_now" value="אינסטגרם">אינסטגרם</label>
+    <label><input type="checkbox" name="booking_now" value="אפליקציה">אפליקציה</label>
+  </div>
+  <label>אם יש אפליקציה או יומן, איזה?<span class="hint">ואם יש בו לקוחות ותורים שצריך להעביר</span></label><input type="text" name="app_now">
+  <label>יש שם לאתר שאתה רוצה?<span class="hint">2-3 רעיונות, למשל avi.co.il. אם לא, אני אציע</span></label><input type="text" name="domain">
+  <label>עוד משהו שחשוב לך שאדע?</label><textarea name="notes"></textarea>
+</div></details>
+
+<details data-sec="8"><summary><span class="n">8</span>להכין לשיחת ההקמה<span class="ok"></span></summary><div class="body">
+  <span class="hint">את החשבונות פותחים ביחד, על השם שלך, בשיחה של חצי שעה. סמן מה כבר מוכן:</span>
+  <label class="check"><input type="checkbox" name="prep" value="תעודת עוסק">צילום תעודת עוסק או אישור פתיחת תיק</label>
+  <label class="check"><input type="checkbox" name="prep" value="אישור ניהול חשבון">אישור ניהול חשבון בנק או צילום צ'ק (לסליקה)</label>
+  <label class="check"><input type="checkbox" name="prep" value="תעודת זהות">תעודת זהות</label>
+  <label class="check"><input type="checkbox" name="prep" value="כרטיס אשראי">כרטיס אשראי לחיובים החודשיים של הספקים (עשרות שקלים בחודש)</label>
+  <label class="check"><input type="checkbox" name="prep" value="מייל לעסק">מייל לעסק (אפשר ג'ימייל חדש)</label>
+  <label class="check"><input type="checkbox" name="prep" value="מספר לעוזר">סים או מספר נפרד לעוזר</label>
+  <label class="check"><input type="checkbox" name="prep" value="פייסבוק">חשבון פייסבוק אישי (בשביל אישור הוואטסאפ העסקי)</label>
+  <label>מתי נוח לך לשיחת ההקמה?</label><input type="text" name="when" placeholder="למשל: ראשון בערב">
+  <div class="box">סיסמאות <b>לא</b> כותבים פה. נעשה את זה ביחד בשיחה.</div>
+</div></details>
+
+</form>
+<p class="saved" id="saved"></p>
+</div>
+
+<div class="foot"><div class="wrap">
+  <button class="btn sec" id="copy" type="button">העתק</button>
+  <button class="btn go" id="send" type="button">סיימתי, שלח לי בוואטסאפ</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const qs=new URLSearchParams(location.search);
+const KEY='b4y-setup-'+(qs.get('id')||'x');
+const TO=(qs.get('to')||'').replace(/\D/g,'').replace(/^0/,'972');
+const NAME=qs.get('n')||'';
+const CID=qs.get('c')||'',CK=qs.get('k')||'';
+const API='https://b4y-sign.barber4you.workers.dev/s/';
+const f=document.getElementById('f');
+if(NAME){document.getElementById('hello').textContent='אהלן '+NAME+'! בוא נקים לך את האפליקציה'}
+
+const DAYS=['ראשון','שני','שלישי','רביעי','חמישי','שישי','מוצ"ש'];
+const dd=document.getElementById('days');
+DAYS.forEach((d,i)=>{dd.insertAdjacentHTML('beforeend',`<div class="day"><b>${d}</b><input type="text" name="h${i}" placeholder="${i==5?'09:00-14:00':i==6?'ריק = סגור':'09:00-20:00'}"></div>`)});
+
+const sv=document.getElementById('svcs');
+function addSvc(v){v=v||{};const r=document.createElement('div');r.className='svc';
+  r.innerHTML=`<input type="text" data-k="s" placeholder="תספורת גבר"><input type="text" data-k="p" inputmode="numeric" placeholder="80"><input type="text" data-k="m" inputmode="numeric" placeholder="30"><button type="button" aria-label="מחק">✕</button>`;
+  r.querySelector('[data-k=s]').value=v.s||'';r.querySelector('[data-k=p]').value=v.p||'';r.querySelector('[data-k=m]').value=v.m||'';
+  r.querySelector('button').onclick=()=>{r.remove();save()};sv.appendChild(r)}
+document.getElementById('addSvc').onclick=()=>{addSvc();save()};
+
+function services(){return [...sv.children].map(r=>({s:r.querySelector('[data-k=s]').value.trim(),p:r.querySelector('[data-k=p]').value.trim(),m:r.querySelector('[data-k=m]').value.trim()})).filter(x=>x.s||x.p)}
+function read(){const o={};for(const el of f.elements){if(!el.name)continue;
+  if(el.type=='radio'){if(el.checked)o[el.name]=el.value}
+  else if(el.type=='checkbox'){o[el.name]=o[el.name]||[];if(el.checked)o[el.name].push(el.value)}
+  else o[el.name]=el.value.trim()}
+  o.services=services();return o}
+function write(o){for(const el of f.elements){if(!el.name||!(el.name in o))continue;
+  if(el.type=='radio')el.checked=o[el.name]==el.value;
+  else if(el.type=='checkbox')el.checked=(o[el.name]||[]).includes(el.value);
+  else el.value=o[el.name]}
+  (o.services&&o.services.length?o.services:[{},{},{}]).forEach(addSvc)}
+
+let data={};try{data=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+write(data);
+if(NAME&&!f.first.value)f.first.value=NAME;
+
+const filled=v=>Array.isArray(v)?v.length>0:!!v;
+function progress(o){
+  let done=0;const secs=[...document.querySelectorAll('details')];
+  secs.forEach(s=>{const names=[...new Set([...s.querySelectorAll('[name]')].map(e=>e.name))];
+    let n=names.filter(k=>filled(o[k])).length;if(s.dataset.sec=='3'&&o.services.length)n++;
+    const ok=n>=Math.min(2,names.length+(s.dataset.sec=='3'?1:0));s.classList.toggle('done',ok);if(ok)done++;
+    s.querySelector('.ok').textContent=ok?'✓':''});
+  const p=Math.round(done/secs.length*100);document.getElementById('fill').style.width=p+'%';
+  document.getElementById('pct').textContent=`${done} מתוך ${secs.length} חלקים`}
+let t;function save(){const o=read();try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+  progress(o);clearTimeout(t);t=setTimeout(()=>{document.getElementById('saved').textContent='נשמר בטלפון ✓ אפשר לסגור ולחזור אחר כך'},400)}
+f.addEventListener('input',save);f.addEventListener('change',save);progress(read());
+
+function text(){const o=read();const L=[];const add=(k,v)=>{if(filled(v))L.push(`${k}: ${Array.isArray(v)?v.join(', '):v}`)};
+  L.push('📋 שאלון הקמה - Barber4You','');
+  L.push('*העסק*');add('שם',[o.first,o.last].filter(Boolean).join(' '));add('מספרה',o.biz_he);add('באנגלית',o.biz_en);add('כתובת',o.address);add('חניה',o.parking);add('נייד',o.phone);add('מייל',o.email);add('אינסטגרם',o.ig);add('סוג עסק',o.biztype);add('מספר עוסק',o.biznum);
+  L.push('','*עיצוב*');add('צבע',[o.color,o.color_other].filter(Boolean).join(' / '));add('לוגו',o.logo);add('שם לאייקון',o.short);
+  L.push('','*שירותים*');o.services.forEach(s=>L.push(`- ${s.s||'?'} | ${s.p||'?'} ₪ | ${s.m||'?'} דק'`));add('הערות',o.price_notes);
+  L.push('','*שעות*');if(DAYS.some((d,i)=>o['h'+i]))DAYS.forEach((d,i)=>L.push(`${d}: ${o['h'+i]||'סגור'}`));else L.push('לא מולא');add('קביעה מראש',o.ahead);add('ביטול עד',o.cancel);add('לא הגיע',o.noshow);add('לקוחות בשבוע',o.clients_week);
+  L.push('','*העוזר*');add('שם',o.asst=='שם אחר'?o.asst_other:o.asst);add('סגנון',o.tone);add('שאלות נפוצות',o.faq);add('אוהב/לא אוהב',o.likes);add('לא לעשות',o.donts);add('מספר לעוזר',o.bot_phone);
+  L.push('','*תשלומים*');add('אמצעים',o.pay);add('סליקה/חשבוניות',o.billing);add('תזכורת',o.pay_remind);add('שעות הודעות',o.active_hours);add('רואה חשבון',o.accountant);
+  L.push('','*היום*');add('קביעת תורים',o.booking_now);add('אפליקציה/יומן',o.app_now);add('דומיין',o.domain);add('הערות',o.notes);
+  L.push('','*מוכן לשיחה*');add('מוכן',o.prep);add('זמן נוח',o.when);
+  L.push('','(תמונות ולוגו שולח בנפרד)');return L.join('\n')}
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.style.display='block';setTimeout(()=>e.style.display='none',2600)}
+async function copy(){try{await navigator.clipboard.writeText(text());toast('הועתק. עכשיו תדביק אצלי בוואטסאפ')}catch(e){prompt('תעתיק:',text())}}
+document.getElementById('copy').onclick=copy;
+function labels(){const L={};document.querySelectorAll('label').forEach(l=>{const el=l.nextElementSibling;if(el&&el.name&&!L[el.name])L[el.name]=l.childNodes[0].textContent.trim();
+  const g=l.nextElementSibling;if(g&&g.classList&&g.classList.contains('chips')){const n=g.querySelector('[name]');if(n&&!L[n.name])L[n.name]=l.childNodes[0].textContent.trim()}});
+  DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';return L}
+async function post(s){if(!CID||!CK)return false;try{const o=read();const answers={};for(const[k,v]of Object.entries(o))answers[k]=k=='services'?o.services.map(x=>`${x.s} | ${x.p} ₪ | ${x.m} דק'`).join('\n'):Array.isArray(v)?v.join(', '):v;
+  const r=await fetch(API+encodeURIComponent(CID)+'?k='+encodeURIComponent(CK),{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({answers,labels:labels(),text:s})});
+  const j=await r.json().catch(()=>({}));return r.ok&&j.ok}catch(e){return false}}
+document.getElementById('send').onclick=async()=>{const s=text();
+  if(await post(s)){toast('נשלח! קיבלתי את הכל 🙏 את התמונות תשלח לי בוואטסאפ');return}
+  if(TO){location.href='https://wa.me/'+TO+'?text='+encodeURIComponent(s);return}
+  if(navigator.share){try{await navigator.share({text:s});return}catch(e){if(e.name=='AbortError')return}}
+  copy()};
+})();
+</script>
+</body>
+</html>
