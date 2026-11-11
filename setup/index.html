@@ -304,6 +304,7 @@ document.querySelectorAll('.up').forEach(u=>{const kind=u.dataset.kind,max=+u.da
     const left=max-FILES.filter(f=>f.kind==kind).length;if(fs.length>left)toast(`אפשר עד ${max} כאן`);
     for(const f of fs.slice(0,Math.max(0,left)))await upload(kind,f,row)}});
 if(!canUp)document.querySelectorAll('.nofiles').forEach(b=>b.hidden=false);
+if(canUp)document.getElementById('send').textContent='סיימתי, שלח';
 function labels(){const L={};document.querySelectorAll('label').forEach(l=>{const el=l.nextElementSibling;if(el&&el.name&&!L[el.name])L[el.name]=l.childNodes[0].textContent.trim();
   const g=l.nextElementSibling;if(g&&g.classList&&g.classList.contains('chips')){const n=g.querySelector('[name]');if(n&&!L[n.name])L[n.name]=l.childNodes[0].textContent.trim()}});
   DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';return L}
