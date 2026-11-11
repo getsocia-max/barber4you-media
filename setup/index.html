@@ -170,6 +170,11 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label><input type="radio" name="tone" value="מנומס ועניני">מנומס ועניני</label>
     <label><input type="radio" name="tone" value="כמו שאני מדבר">כמו שאני מדבר</label>
   </div>
+  <div data-if="tone:כמו שאני מדבר">
+    <div class="up" data-kind="chats" data-max="10"><label>צילומי מסך של שיחות אמיתיות עם לקוחות<span class="hint">5 עד 10 צילומים מהוואטסאפ, ככה העוזר ילמד לכתוב בדיוק כמוך</span></label></div>
+    <div class="box nofiles" hidden>תשלח לי בוואטסאפ 5 עד 10 צילומי מסך של שיחות אמיתיות עם לקוחות, ככה העוזר ילמד לכתוב כמוך.</div>
+    <label>הביטויים הקבועים שלך<span class="hint">איך אתה פותח ("אהלן אחי"), איך סוגר ("סגרנו, נתראה 💈"), אילו אימוג'ים אתה אוהב</span></label><textarea name="phrases"></textarea>
+  </div>
   <label>מה הלקוחות הכי שואלים אותך?<span class="hint">ומה אתה עונה. למשל חניה, אשראי, תורים לילדים, תור דחוף</span></label><textarea name="faq"></textarea>
   <label>מה אתה אוהב ומה ממש לא?<span class="hint">למשל: לא רוצה תורים אחרי 21:00, לא מוכן לקבוע לאותו יום, אוהב שמאשרים יום לפני</span></label><textarea name="likes"></textarea>
   <label>מה העוזר לא אמור להגיד או לעשות?</label><textarea name="donts"></textarea>
@@ -305,7 +310,7 @@ function text(){const o=read();const L=[];const add=(k,v)=>{if(filled(v))L.push(
   L.push('','*עיצוב*');add('צבע',o.color=='אחר'?o.color_other:o.color);add('לוגו',o.logo);add('שם לאייקון',o.short);
   L.push('','*שירותים*');o.services.forEach(s=>L.push(`- ${s.s||'?'} | ${s.p||'?'} ₪ | ${s.m||'?'} דק'`));add('הערות',o.price_notes);
   L.push('','*שעות*');if(DAYS.some((d,i)=>o['h'+i]))DAYS.forEach((d,i)=>L.push(`${d}: ${o['h'+i]||'סגור'}`));else L.push('לא מולא');add('קביעה מראש',o.ahead);add('ביטול עד',o.cancel=='אחר'?o.cancel_other:o.cancel);add('לא הגיע',o.noshow);add('לקוחות בשבוע',o.clients_week);
-  L.push('','*העוזר*');add('שם',o.asst=='שם אחר'?o.asst_other:o.asst);add('סגנון',o.tone);add('שאלות נפוצות',o.faq);add('אוהב/לא אוהב',o.likes);add('לא לעשות',o.donts);add('מספר לעוזר',o.bot_number=='have'?('יש: '+(o.bot_phone||'?')):o.bot_number=='need'?'אין, לסדר לו (לקנות)':'');
+  L.push('','*העוזר*');add('שם',o.asst=='שם אחר'?o.asst_other:o.asst);add('סגנון',o.tone);add('ביטויים קבועים',o.tone=='כמו שאני מדבר'?o.phrases:'');add('שאלות נפוצות',o.faq);add('אוהב/לא אוהב',o.likes);add('לא לעשות',o.donts);add('מספר לעוזר',o.bot_number=='have'?('יש: '+(o.bot_phone||'?')):o.bot_number=='need'?'אין, לסדר לו (לקנות)':'');
   L.push('','*תשלומים*');add('אמצעים',(o.pay||[]).map(x=>x=='אחר'?(o.pay_other||'אחר'):x));add('סליקה/חשבוניות',o.billing);add('תזכורת',o.pay_remind);add('שעות הודעות',o.active_hours);add('רואה חשבון',o.accountant);
   L.push('','*היום*');add('קביעת תורים',o.booking_now);add('אפליקציה/יומן',o.app_now);add('דומיין',o.domain);add('הערות',o.notes);
   L.push('','*מוכן לשיחה*');add('מוכן',o.prep);add('זמן נוח',o.when);
@@ -348,7 +353,7 @@ function showDone(){const n=files().length,nm=(f.first.value||'').trim();
 document.getElementById('back').onclick=()=>{document.getElementById('done').hidden=true};
 function labels(){const L={};document.querySelectorAll('label').forEach(l=>{const el=l.nextElementSibling;if(el&&el.name&&!L[el.name])L[el.name]=l.childNodes[0].textContent.trim();
   const g=l.nextElementSibling;if(g&&g.classList&&g.classList.contains('chips')){const n=g.querySelector('[name]');if(n&&!L[n.name])L[n.name]=l.childNodes[0].textContent.trim()}});
-  DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';L.cancel_other='ביטול (אחר)';L.pay_other='תשלום (אחר)';L.bot_number='מספר לעוזר';L.bot_phone='המספר הנוסף';return L}
+  DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';L.phrases='ביטויים קבועים';L.cancel_other='ביטול (אחר)';L.pay_other='תשלום (אחר)';L.bot_number='מספר לעוזר';L.bot_phone='המספר הנוסף';return L}
 async function post(s){if(!CID||!CK)return false;try{const o=read();const answers={};for(const[k,v]of Object.entries(o))answers[k]=k=='services'?o.services.map(x=>`${x.s} | ${x.p} ₪ | ${x.m} דק'`).join('\n'):Array.isArray(v)?v.join(', '):v;
   const r=await fetch(API+encodeURIComponent(CID)+'?k='+encodeURIComponent(CK),{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({answers,labels:labels(),text:s})});
   const j=await r.json().catch(()=>({}));return r.ok&&j.ok}catch(e){return false}}
