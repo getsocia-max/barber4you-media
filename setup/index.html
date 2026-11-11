@@ -9,6 +9,7 @@
 <style>
 :root{--bg:#0f1311;--card:#171d1a;--line:#26302b;--ink:#eef2ef;--mute:#9aa8a1;--acc:#2fbf71;--acc2:#1f8a51;--warn:#f2b84b}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;padding:0 16px 120px}
 .wrap{max-width:640px;margin:0 auto}
 header{padding:28px 0 8px}
@@ -61,6 +62,16 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
 .up .th.bad{border-color:#d55}
 .up .pick{width:64px;height:64px;border-radius:10px;border:1px dashed var(--acc);color:var(--acc);display:grid;place-items:center;font-size:26px;cursor:pointer;margin:0}
 .up .pick input{display:none}
+.done-screen{position:fixed;inset:0;background:radial-gradient(circle at 50% 20%,#1d4a39,var(--bg) 70%);z-index:20;overflow:auto;padding:40px 16px;text-align:center}
+.dlogo{width:96px;height:96px;border-radius:24px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.tick{width:64px;height:64px;border-radius:50%;background:var(--acc);color:#04130b;font-size:36px;font-weight:800;display:grid;place-items:center;margin:22px auto 8px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.done-screen h2{font-size:26px;margin:6px 0}
+.steps{text-align:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 14px;margin:20px 0}
+.st{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.st:last-child{border:0}
+.st b{background:var(--line);border-radius:50%;width:26px;height:26px;display:grid;place-items:center;flex:none;font-size:14px}
+.brand{color:var(--mute);font-size:13px;margin-top:22px}
 .toast{position:fixed;top:16px;inset-inline:16px;max-width:520px;margin:auto;background:var(--acc);color:#04130b;padding:12px 16px;border-radius:12px;font-weight:700;display:none;z-index:9;text-align:center}
 </style>
 </head>
@@ -91,7 +102,7 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label><input type="radio" name="biztype" value="חברה">חברה בע"מ</label>
     <label><input type="radio" name="biztype" value="עוד לא פתחתי">עוד לא פתחתי</label>
   </div>
-  <label>מספר העוסק<span class="hint">צריך אותו לאישור של וואטסאפ ולסליקה</span></label><input type="text" name="biznum" inputmode="numeric">
+  <div data-if="biztype:!עוד לא פתחתי"><label>מספר העוסק<span class="hint">צריך אותו לאישור של וואטסאפ ולסליקה</span></label><input type="text" name="biznum" inputmode="numeric"></div>
 </div></details>
 
 <details data-sec="2"><summary><span class="n">2</span>איך זה נראה<span class="ok"></span></summary><div class="body">
@@ -105,7 +116,8 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label style="background:#5B3A8C"><input type="radio" name="color" value="סגול"></label>
     <label style="background:#C2552D"><input type="radio" name="color" value="כתום"></label>
   </div>
-  <label>או תכתוב צבע אחר / "כמו הלוגו"</label><input type="text" name="color_other">
+  <div class="chips" style="margin-top:10px"><label><input type="radio" name="color" value="אחר">צבע אחר / כמו הלוגו</label></div>
+  <div data-if="color:אחר"><input type="text" name="color_other" placeholder="איזה צבע?" style="margin-top:8px"></div>
   <label>יש לך לוגו?</label>
   <div class="chips">
     <label><input type="radio" name="logo" value="יש">יש</label>
@@ -138,7 +150,9 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label><input type="radio" name="cancel" value="3 שעות">3 שעות</label>
     <label><input type="radio" name="cancel" value="יום לפני">יום לפני</label>
     <label><input type="radio" name="cancel" value="מתי שבא לו">מתי שבא לו</label>
+    <label><input type="radio" name="cancel" value="אחר">אחר</label>
   </div>
+  <div data-if="cancel:אחר"><input type="text" name="cancel_other" placeholder="תכתוב מה אצלך" style="margin-top:8px"></div>
   <label>מה עושים עם לקוח שלא הגיע?</label><input type="text" name="noshow" placeholder="למשל: אזהרה בפעם הראשונה, אחר כך חוסם">
   <label>בערך כמה לקוחות יש לך בשבוע?</label><input type="text" name="clients_week" inputmode="numeric">
 </div></details>
@@ -147,9 +161,9 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
   <label>איך לקרוא לעוזר?</label>
   <div class="chips">
     <label><input type="radio" name="asst" value="יובל">יובל</label>
-    <label><input type="radio" name="asst" value="שם אחר">שם אחר (תכתוב למטה)</label>
+    <label><input type="radio" name="asst" value="שם אחר">שם אחר </label>
   </div>
-  <input type="text" name="asst_other" placeholder="השם שבחרת" style="margin-top:8px">
+  <div data-if="asst:שם אחר"><input type="text" name="asst_other" placeholder="השם שבחרת" style="margin-top:8px"></div>
   <label>איך הוא מדבר עם הלקוחות?</label>
   <div class="chips">
     <label><input type="radio" name="tone" value="חברי וקליל">חברי וקליל</label>
@@ -164,7 +178,7 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label><input type="radio" name="bot_number" value="have">יש לי מספר נוסף</label>
     <label><input type="radio" name="bot_number" value="need">אין לי, תסדר לי</label>
   </div>
-  <input type="tel" name="bot_phone" id="botPhone" placeholder="המספר הנוסף" style="margin-top:8px" hidden>
+  <div data-if="bot_number:have"><input type="tel" name="bot_phone" placeholder="המספר הנוסף" style="margin-top:8px"></div>
 </div></details>
 
 <details data-sec="6"><summary><span class="n">6</span>תשלומים וחשבוניות<span class="ok"></span></summary><div class="body">
@@ -175,7 +189,9 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label><input type="checkbox" name="pay" value="פייבוקס">פייבוקס</label>
     <label><input type="checkbox" name="pay" value="אשראי">אשראי</label>
     <label><input type="checkbox" name="pay" value="העברה">העברה</label>
+    <label><input type="checkbox" name="pay" value="אחר">אחר</label>
   </div>
+  <div data-if="pay:אחר"><input type="text" name="pay_other" placeholder="איך עוד משלמים לך?" style="margin-top:8px"></div>
   <label>יש לך היום חשבון סליקה או חשבוניות?<span class="hint">למשל גרואו (משולם), איזיקאונט, חשבונית ירוקה. תכתוב איזה</span></label><input type="text" name="billing">
   <label>מתי לשלוח תזכורת למי שלא שילם?<span class="hint">למשל: ב-21:00 באותו יום</span></label><input type="text" name="pay_remind">
   <label>באילו שעות מותר לשלוח ללקוחות הודעות?<span class="hint">למשל: 09:00 עד 21:00</span></label><input type="text" name="active_hours">
@@ -190,7 +206,7 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
     <label><input type="checkbox" name="booking_now" value="אינסטגרם">אינסטגרם</label>
     <label><input type="checkbox" name="booking_now" value="אפליקציה">אפליקציה</label>
   </div>
-  <label>אם יש אפליקציה או יומן, איזה?<span class="hint">ואם יש בו לקוחות ותורים שצריך להעביר</span></label><input type="text" name="app_now">
+  <div data-if="booking_now:אפליקציה"><label>איזו אפליקציה?<span class="hint">ואם יש בה לקוחות ותורים שצריך להעביר</span></label><input type="text" name="app_now"></div>
   <label>יש שם לאתר שאתה רוצה?<span class="hint">2-3 רעיונות, למשל avi.co.il. אם לא, אני אציע</span></label><input type="text" name="domain">
   <label>עוד משהו שחשוב לך שאדע?</label><textarea name="notes"></textarea>
 </div></details>
@@ -217,6 +233,20 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
   <button class="btn go" id="send" type="button">סיימתי, שלח לי בוואטסאפ</button>
 </div></div>
 <div class="toast" id="toast"></div>
+<div class="done-screen" id="done" hidden><div class="wrap">
+  <img src="logo.jpg" alt="Barber4You" class="dlogo">
+  <div class="tick">✓</div>
+  <h2 id="dTitle">השאלון נשלח לניתאי!</h2>
+  <p class="sub" id="dSub">תודה. קיבלתי את כל התשובות.</p>
+  <div class="steps">
+    <div class="st"><b>1</b><span>אני עובר על הכל, ותוך יום חוזר אליך בוואטסאפ.</span></div>
+    <div class="st"><b>2</b><span>קובעים שיחת הקמה של חצי שעה, ופותחים ביחד את החשבונות על השם שלך.</span></div>
+    <div class="st"><b>3</b><span>אני בונה לך את האפליקציה ואת העוזר, ושולח לך לנסות לפני שמשיקים.</span></div>
+  </div>
+  <p class="sub">שכחת משהו? אפשר לחזור, לתקן ולשלוח שוב.</p>
+  <button class="btn sec" id="back" type="button" style="width:100%">חזרה לשאלון</button>
+  <p class="brand">ספר, זה בשבילך ✂<br><span dir="ltr">Barber4You</span></p>
+</div></div>
 
 <script>
 (function(){
@@ -272,11 +302,11 @@ f.addEventListener('input',save);f.addEventListener('change',save);progress(read
 function text(){const o=read();const L=[];const add=(k,v)=>{if(filled(v))L.push(`${k}: ${Array.isArray(v)?v.join(', '):v}`)};
   L.push('📋 שאלון הקמה - Barber4You','');
   L.push('*העסק*');add('שם',[o.first,o.last].filter(Boolean).join(' '));add('מספרה',o.biz_he);add('באנגלית',o.biz_en);add('כתובת',o.address);add('חניה',o.parking);add('נייד',o.phone);add('מייל',o.email);add('אינסטגרם',o.ig);add('סוג עסק',o.biztype);add('מספר עוסק',o.biznum);
-  L.push('','*עיצוב*');add('צבע',[o.color,o.color_other].filter(Boolean).join(' / '));add('לוגו',o.logo);add('שם לאייקון',o.short);
+  L.push('','*עיצוב*');add('צבע',o.color=='אחר'?o.color_other:o.color);add('לוגו',o.logo);add('שם לאייקון',o.short);
   L.push('','*שירותים*');o.services.forEach(s=>L.push(`- ${s.s||'?'} | ${s.p||'?'} ₪ | ${s.m||'?'} דק'`));add('הערות',o.price_notes);
-  L.push('','*שעות*');if(DAYS.some((d,i)=>o['h'+i]))DAYS.forEach((d,i)=>L.push(`${d}: ${o['h'+i]||'סגור'}`));else L.push('לא מולא');add('קביעה מראש',o.ahead);add('ביטול עד',o.cancel);add('לא הגיע',o.noshow);add('לקוחות בשבוע',o.clients_week);
+  L.push('','*שעות*');if(DAYS.some((d,i)=>o['h'+i]))DAYS.forEach((d,i)=>L.push(`${d}: ${o['h'+i]||'סגור'}`));else L.push('לא מולא');add('קביעה מראש',o.ahead);add('ביטול עד',o.cancel=='אחר'?o.cancel_other:o.cancel);add('לא הגיע',o.noshow);add('לקוחות בשבוע',o.clients_week);
   L.push('','*העוזר*');add('שם',o.asst=='שם אחר'?o.asst_other:o.asst);add('סגנון',o.tone);add('שאלות נפוצות',o.faq);add('אוהב/לא אוהב',o.likes);add('לא לעשות',o.donts);add('מספר לעוזר',o.bot_number=='have'?('יש: '+(o.bot_phone||'?')):o.bot_number=='need'?'אין, לסדר לו (לקנות)':'');
-  L.push('','*תשלומים*');add('אמצעים',o.pay);add('סליקה/חשבוניות',o.billing);add('תזכורת',o.pay_remind);add('שעות הודעות',o.active_hours);add('רואה חשבון',o.accountant);
+  L.push('','*תשלומים*');add('אמצעים',(o.pay||[]).map(x=>x=='אחר'?(o.pay_other||'אחר'):x));add('סליקה/חשבוניות',o.billing);add('תזכורת',o.pay_remind);add('שעות הודעות',o.active_hours);add('רואה חשבון',o.accountant);
   L.push('','*היום*');add('קביעת תורים',o.booking_now);add('אפליקציה/יומן',o.app_now);add('דומיין',o.domain);add('הערות',o.notes);
   L.push('','*מוכן לשיחה*');add('מוכן',o.prep);add('זמן נוח',o.when);
   const F=files();L.push('',F.length?`*קבצים שהועלו*: ${F.length}`:'(תמונות ולוגו שולח בנפרד)');return L.join('\n')}
@@ -308,16 +338,22 @@ document.querySelectorAll('.up').forEach(u=>{const kind=u.dataset.kind,max=+u.da
     for(const f of fs.slice(0,Math.max(0,left)))await upload(kind,f,row)}});
 if(!canUp)document.querySelectorAll('.nofiles').forEach(b=>b.hidden=false);
 if(canUp)document.getElementById('send').textContent='סיימתי, שלח';
-function botUi(){const v=(f.querySelector('[name=bot_number]:checked')||{}).value;document.getElementById('botPhone').hidden=v!='have'}
-f.addEventListener('change',botUi);botUi();
+function cond(){document.querySelectorAll('[data-if]').forEach(el=>{const i=el.dataset.if.indexOf(':'),n=el.dataset.if.slice(0,i),v=el.dataset.if.slice(i+1);
+  const vals=[...f.querySelectorAll(`[name="${n}"]:checked`)].map(x=>x.value);el.hidden=v[0]=='!'?!(vals.length&&!vals.includes(v.slice(1))):!vals.includes(v)})}
+f.addEventListener('change',cond);cond();
+function showDone(){const n=files().length,nm=(f.first.value||'').trim();
+  document.getElementById('dTitle').textContent=(nm?'תודה '+nm+'! ':'')+'השאלון נשלח לניתאי';
+  document.getElementById('dSub').textContent=n?`קיבלתי את כל התשובות ו-${n} קבצים.`:'קיבלתי את כל התשובות. את הלוגו והתמונות אפשר לשלוח לי בוואטסאפ.';
+  document.getElementById('done').hidden=false;window.scrollTo(0,0)}
+document.getElementById('back').onclick=()=>{document.getElementById('done').hidden=true};
 function labels(){const L={};document.querySelectorAll('label').forEach(l=>{const el=l.nextElementSibling;if(el&&el.name&&!L[el.name])L[el.name]=l.childNodes[0].textContent.trim();
   const g=l.nextElementSibling;if(g&&g.classList&&g.classList.contains('chips')){const n=g.querySelector('[name]');if(n&&!L[n.name])L[n.name]=l.childNodes[0].textContent.trim()}});
-  DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';L.bot_number='מספר לעוזר';L.bot_phone='המספר הנוסף';return L}
+  DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';L.cancel_other='ביטול (אחר)';L.pay_other='תשלום (אחר)';L.bot_number='מספר לעוזר';L.bot_phone='המספר הנוסף';return L}
 async function post(s){if(!CID||!CK)return false;try{const o=read();const answers={};for(const[k,v]of Object.entries(o))answers[k]=k=='services'?o.services.map(x=>`${x.s} | ${x.p} ₪ | ${x.m} דק'`).join('\n'):Array.isArray(v)?v.join(', '):v;
   const r=await fetch(API+encodeURIComponent(CID)+'?k='+encodeURIComponent(CK),{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({answers,labels:labels(),text:s})});
   const j=await r.json().catch(()=>({}));return r.ok&&j.ok}catch(e){return false}}
 document.getElementById('send').onclick=async()=>{const s=text();
-  if(await post(s)){toast(files().length?'נשלח! קיבלתי את הכל, כולל התמונות 🙏':'נשלח! קיבלתי את הכל 🙏 את התמונות תשלח לי בוואטסאפ');return}
+  if(await post(s)){showDone();return}
   if(TO){location.href='https://wa.me/'+TO+'?text='+encodeURIComponent(s);return}
   if(navigator.share){try{await navigator.share({text:s});return}catch(e){if(e.name=='AbortError')return}}
   copy()};
