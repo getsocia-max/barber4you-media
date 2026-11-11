@@ -1,0 +1,259 @@
+[
+ {
+  "id": "v0-1a",
+  "kind": "opening_morning",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-1a.m4a",
+  "text": "בוקר טוב אחי, מה העניינים? ראיתי שכתבת",
+  "trigger": "כתב 'יובל' בבוקר",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-1b",
+  "kind": "opening_morning",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-1b.m4a",
+  "text": "בוקר טוב אחי, מה העניינים? ראיתי שכתבת",
+  "trigger": "כתב 'יובל' בבוקר",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-1c",
+  "kind": "opening_morning",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-1c.m4a",
+  "text": "בוקר טוב אחי, מה העניינים? ראיתי שכתבת",
+  "trigger": "כתב 'יובל' בבוקר",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-3a",
+  "kind": "opening_noon",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-3a.m4a",
+  "text": "מה העניינים אחי? הכל טוב? איזה כיף שכתבת",
+  "trigger": "כתב 'יובל' בצהריים",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-3b",
+  "kind": "opening_noon",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-3b.m4a",
+  "text": "מה העניינים אחי? הכל טוב? איזה כיף שכתבת",
+  "trigger": "כתב 'יובל' בצהריים",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-3c",
+  "kind": "opening_noon",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-3c.m4a",
+  "text": "מה העניינים? הכל טוב אחי? איזה כיף שכתבת",
+  "trigger": "כתב 'יובל' בצהריים",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-5",
+  "kind": "opening_evening",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-5.m4a",
+  "text": "ערב טוב אחי. וואלה רק עכשיו סגרתי את המספרה. בדיוק ראיתי את ההודעה",
+  "from": 19,
+  "trigger": "כתב 'יובל' בערב",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-6a",
+  "kind": "opening_night",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-6a.m4a",
+  "text": "לילה טוב אחי, וואלה אתה ער? מה קורה?",
+  "trigger": "כתב 'יובל' בלילה",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-6b",
+  "kind": "opening_night",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-6b.m4a",
+  "text": "לילה טוב אח שלי, אתה ער אה? מה קורה?",
+  "trigger": "כתב 'יובל' בלילה",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-6c",
+  "kind": "opening_night",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-6c.m4a",
+  "text": "לילה טוב אחי, מה העניינים? אתה ער אה? מה איתך, מה קורה?",
+  "trigger": "כתב 'יובל' בלילה",
+  "goal": "פתיחה חמה ואישית, לפי השעה"
+ },
+ {
+  "id": "v0-7a",
+  "kind": "opening_motzash",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-7a.m4a",
+  "text": "שבוע טוב אח יקר ואהוב, מה קורה?",
+  "trigger": "כתב 'יובל' במוצאי שבת",
+  "goal": "פתיחה חמה ואישית"
+ },
+ {
+  "id": "v0-7b",
+  "kind": "opening_motzash",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-7b.m4a",
+  "text": "שבוע טוב אח יקר, מה העניינים?",
+  "trigger": "כתב 'יובל' במוצאי שבת",
+  "goal": "פתיחה חמה ואישית"
+ },
+ {
+  "id": "v0-7c",
+  "kind": "opening_motzash",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v0-7c.m4a",
+  "text": "שבוע טוב אח יקר, מה איתך?",
+  "trigger": "כתב 'יובל' במוצאי שבת",
+  "goal": "פתיחה חמה ואישית"
+ },
+ {
+  "id": "v1-0",
+  "kind": "reaction",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v1-0.m4a",
+  "text": "וואלה מדהים אחי",
+  "trigger": "סיפר על המספרה שלו",
+  "goal": "להראות שאני מקשיב ומתלהב"
+ },
+ {
+  "id": "v1-1",
+  "kind": "reaction",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v1-1.m4a",
+  "text": "וואלה יפה אחי, נשמע מדהים. אהבתי ממש",
+  "trigger": "סיפר על המספרה שלו",
+  "goal": "להראות שאני מקשיב ומתלהב"
+ },
+ {
+  "id": "v1-2",
+  "kind": "relate",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v1-2.m4a",
+  "text": "וואי וואי אני מכיר, מכיר את זה אחי. הייתי שם",
+  "trigger": "מתלונן על הטלפון או על לקוחות",
+  "goal": "להראות שאני מבין, הייתי שם"
+ },
+ {
+  "id": "v1-3",
+  "kind": "ok",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v1-3.m4a",
+  "text": "סבבה אחי, הכל טוב",
+  "trigger": "תשובה כללית",
+  "goal": "להמשיך את השיחה בטבעיות"
+ },
+ {
+  "id": "v2-0",
+  "kind": "what_is_yuval",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v2-0.m4a",
+  "text": "יובל זה עוזר שיושב בוואטסאפ. הוא עונה ללקוחות, מזיז להם תורים, שולח להם לינק תשלום אחרי תספורת, קובע להם תור, מזיז אותם במידה והם מאחרים. אני היום כבר אתה יודע, לא עושה כלום עם זה. זהו, הכל אוטומט",
+  "trigger": "שואל מה זה יובל",
+  "goal": "להסביר בקצרה מה יובל עושה"
+ },
+ {
+  "id": "v2-1",
+  "kind": "before_yuval",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v2-1.m4a",
+  "text": "שמע, שמע אחי, אני חושב שהכי טוב שתראה את זה בעצמך. אני אשלח לך פה את המספר של יובל. תכתוב לו בעצמך, תראה איך זה.",
+  "trigger": "סיפר שיש לו מספרה",
+  "goal": "שינסה את יובל בעצמו"
+ },
+ {
+  "id": "v3-0",
+  "kind": "how_was",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v3-0.m4a",
+  "text": "נו, איך היה עם יובל?",
+  "trigger": "עברו 7 דקות מהקישור ליובל",
+  "goal": "לשמוע מה הוא חשב"
+ },
+ {
+  "id": "v3-1",
+  "kind": "how_was",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v3-1.m4a",
+  "text": "נו בדקת את יובל? מה אומר",
+  "trigger": "עברו 7 דקות מהקישור ליובל",
+  "goal": "לשמוע מה הוא חשב"
+ },
+ {
+  "id": "v3-2",
+  "kind": "how_was",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v3-2.m4a",
+  "text": "נו אז מה אחי? דיברת עם יובל? בדקת אותו? מה אומר",
+  "trigger": "עברו 7 דקות מהקישור ליובל",
+  "goal": "לשמוע מה הוא חשב"
+ },
+ {
+  "id": "v3-3",
+  "kind": "after_yuval",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v3-3.m4a",
+  "text": "נוח שלי, ראית מה הוא עושה, מה הוא יכול לעשות? וואלה, ככה זה כבר אצלי כל הזמן",
+  "trigger": "ניסה את יובל",
+  "goal": "לחבר את מה שראה לחיים שלו"
+ },
+ {
+  "id": "v4-0",
+  "kind": "ask_phone",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v4-0.m4a",
+  "text": "בא לך שאני אחייג אליך עוד מעט? תשאיר את המספר טלפון שלך ואני אצלצל",
+  "trigger": "מתעניין או שואל הרבה",
+  "goal": "לקבל מספר טלפון לשיחה"
+ },
+ {
+  "id": "v4-1",
+  "kind": "ask_phone",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v4-1.m4a",
+  "text": "תקשיב, תשאיר לי פה את המספר טלפון שלך. אני אסיים עם לקוח ואני אצלצל אליך",
+  "trigger": "מתעניין או שואל הרבה",
+  "goal": "לקבל מספר טלפון לשיחה"
+ },
+ {
+  "id": "v4-2",
+  "kind": "ask_phone",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v4-2.m4a",
+  "text": "שמע, אני מעדיף בשבילך להסביר לך את זה בטלפון. שלח לי את המספר שלך ואני אחייג אליך שאני אסיים פה. אני אסביר לך על הכל",
+  "trigger": "מתעניין או שואל הרבה",
+  "goal": "לקבל מספר טלפון לשיחה"
+ },
+ {
+  "id": "v5-0",
+  "kind": "closing",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v5-0.m4a",
+  "text": "סגור אח שלי נדבר נהיה בקשר",
+  "trigger": "השאיר מספר",
+  "goal": "לסגור בחום ולתאם שיחה"
+ },
+ {
+  "id": "v5-1",
+  "kind": "closing",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v5-1.m4a",
+  "text": "יאללה אש אחי, אני חייג אליך שאסיים פה. אין לקוח ונדבר",
+  "trigger": "השאיר מספר",
+  "goal": "לסגור בחום ולתאם שיחה"
+ },
+ {
+  "id": "v5-2",
+  "kind": "nudge",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v5-2.m4a",
+  "text": "אחי ראית מה שלחתי?",
+  "trigger": "לא ענה עד למחרת",
+  "goal": "להחזיר אותו לשיחה"
+ },
+ {
+  "id": "v5-3",
+  "kind": "last_nudge",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v5-3.m4a",
+  "text": "שמע, אני לא רוצה להציק. אם תרצה בהמשך תכתוב פשוט יובל",
+  "trigger": "לא ענה גם לתזכורת",
+  "goal": "לסיים יפה ולהשאיר דלת פתוחה"
+ },
+ {
+  "id": "v6-0",
+  "kind": "price",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v6-0.m4a",
+  "text": "וואלה מחיר ההשקה כרגע זה אלף שלוש מאות פלוס מע\"מ. זה לא איזה מנוי חודשי או משהו וזהו",
+  "trigger": "שואל כמה זה עולה",
+  "goal": "להגיד מחיר השקה ולהעביר לשיחה"
+ },
+ {
+  "id": "v6-1",
+  "kind": "too_expensive",
+  "url": "https://getsocia-max.github.io/barber4you-media/dm-voices/v6-1.m4a",
+  "text": "זה לא יקר אחי בכלל. אמ, אני די אסביר לך על זה בטלפון. אני אסביר לך איך זה עובד וכמה זה שווה. אפילו יש לך כמה רילסים אצלי בעמוד שאתה יכול לראות שם ולהבין למה זה לא יקר.",
+  "trigger": "אומר שזה יקר",
+  "goal": "להפיל את ההתנגדות ולהעביר לשיחה"
+ }
+]
