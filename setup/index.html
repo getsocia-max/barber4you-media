@@ -210,6 +210,8 @@ const qs=new URLSearchParams(location.search);
 const KEY='b4y-setup-'+(qs.get('id')||'x');
 const TO=(qs.get('to')||'').replace(/\D/g,'').replace(/^0/,'972');
 const NAME=qs.get('n')||'';
+const CID=qs.get('c')||'',CK=qs.get('k')||'';
+const API='https://b4y-sign.barber4you.workers.dev/s/';
 const f=document.getElementById('f');
 if(NAME){document.getElementById('hello').textContent='אהלן '+NAME+'! בוא נקים לך את האפליקציה'}
 
@@ -267,7 +269,14 @@ function text(){const o=read();const L=[];const add=(k,v)=>{if(filled(v))L.push(
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.style.display='block';setTimeout(()=>e.style.display='none',2600)}
 async function copy(){try{await navigator.clipboard.writeText(text());toast('הועתק. עכשיו תדביק אצלי בוואטסאפ')}catch(e){prompt('תעתיק:',text())}}
 document.getElementById('copy').onclick=copy;
+function labels(){const L={};document.querySelectorAll('label').forEach(l=>{const el=l.nextElementSibling;if(el&&el.name&&!L[el.name])L[el.name]=l.childNodes[0].textContent.trim();
+  const g=l.nextElementSibling;if(g&&g.classList&&g.classList.contains('chips')){const n=g.querySelector('[name]');if(n&&!L[n.name])L[n.name]=l.childNodes[0].textContent.trim()}});
+  DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';return L}
+async function post(s){if(!CID||!CK)return false;try{const o=read();const answers={};for(const[k,v]of Object.entries(o))answers[k]=k=='services'?o.services.map(x=>`${x.s} | ${x.p} ₪ | ${x.m} דק'`).join('\n'):Array.isArray(v)?v.join(', '):v;
+  const r=await fetch(API+encodeURIComponent(CID)+'?k='+encodeURIComponent(CK),{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({answers,labels:labels(),text:s})});
+  const j=await r.json().catch(()=>({}));return r.ok&&j.ok}catch(e){return false}}
 document.getElementById('send').onclick=async()=>{const s=text();
+  if(await post(s)){toast('נשלח! קיבלתי את הכל 🙏 את התמונות תשלח לי בוואטסאפ');return}
   if(TO){location.href='https://wa.me/'+TO+'?text='+encodeURIComponent(s);return}
   if(navigator.share){try{await navigator.share({text:s});return}catch(e){if(e.name=='AbortError')return}}
   copy()};
