@@ -55,6 +55,12 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
 .go{background:var(--acc);color:#04130b}
 .sec{background:var(--card);color:var(--ink);border:1px solid var(--line);flex:0 0 auto;padding:15px 16px}
 .saved{font-size:13px;color:var(--mute);text-align:center;margin:18px 0}
+.up .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.up .th{width:64px;height:64px;border-radius:10px;background:#0c100e center/cover;border:1px solid var(--line);position:relative;display:grid;place-items:center;font-size:11px;color:var(--mute);overflow:hidden}
+.up .th.wait::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.up .th.bad{border-color:#d55}
+.up .pick{width:64px;height:64px;border-radius:10px;border:1px dashed var(--acc);color:var(--acc);display:grid;place-items:center;font-size:26px;cursor:pointer;margin:0}
+.up .pick input{display:none}
 .toast{position:fixed;top:16px;inset-inline:16px;max-width:520px;margin:auto;background:var(--acc);color:#04130b;padding:12px 16px;border-radius:12px;font-weight:700;display:none;z-index:9;text-align:center}
 </style>
 </head>
@@ -102,12 +108,16 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
   <label>או תכתוב צבע אחר / "כמו הלוגו"</label><input type="text" name="color_other">
   <label>יש לך לוגו?</label>
   <div class="chips">
-    <label><input type="radio" name="logo" value="יש, אשלח">יש, אשלח</label>
+    <label><input type="radio" name="logo" value="יש">יש</label>
     <label><input type="radio" name="logo" value="אין, תעצב לי משהו פשוט">אין, תעצב לי משהו פשוט</label>
   </div>
   <label>שם קצר לאייקון בטלפון<span class="hint">מופיע מתחת לאייקון, עד 12 תווים</span></label><input type="text" name="short" maxlength="14">
-  <div class="box"><b>לשלוח לי בוואטסאפ (תמונות, לא כאן):</b>
-    <ul><li>לוגו, באיכות הכי טובה שיש (אם יש)</li><li>6 עד 15 תמונות של תספורות שלך לגלריה</li><li>תמונה של המספרה ותמונה שלך (לא חובה)</li><li>צילומי מסך של ביקורות טובות מלקוחות (לא חובה)</li></ul></div>
+  <div class="up" data-kind="logo" data-max="1"><label>לוגו<span class="hint">באיכות הכי טובה שיש (אם יש)</span></label></div>
+  <div class="up" data-kind="gallery" data-max="15"><label>תמונות של תספורות שלך<span class="hint">6 עד 15 תמונות לגלריה</span></label></div>
+  <div class="up" data-kind="shop" data-max="3"><label>תמונה של המספרה<span class="hint">לא חובה</span></label></div>
+  <div class="up" data-kind="me" data-max="2"><label>תמונה שלך<span class="hint">לא חובה</span></label></div>
+  <div class="up" data-kind="reviews" data-max="10"><label>צילומי מסך של ביקורות טובות<span class="hint">לא חובה</span></label></div>
+  <div class="box nofiles" hidden><b>את התמונות תשלח לי בוואטסאפ:</b> לוגו, 6 עד 15 תמונות של תספורות, ואם יש גם תמונה של המספרה וצילומי מסך של ביקורות.</div>
 </div></details>
 
 <details data-sec="3"><summary><span class="n">3</span>שירותים ומחירים<span class="ok"></span></summary><div class="body">
@@ -191,6 +201,7 @@ input:focus,textarea:focus{outline:2px solid var(--acc2);border-color:transparen
   <label class="check"><input type="checkbox" name="prep" value="מספר לעוזר">סים או מספר נפרד לעוזר</label>
   <label class="check"><input type="checkbox" name="prep" value="פייסבוק">חשבון פייסבוק אישי (בשביל אישור הוואטסאפ העסקי)</label>
   <label>מתי נוח לך לשיחת ההקמה?</label><input type="text" name="when" placeholder="למשל: ראשון בערב">
+  <div class="up" data-kind="docs" data-max="4" data-pdf="1"><label>להעלות מסמכים כבר עכשיו<span class="hint">תעודת עוסק ואישור ניהול חשבון. לא חובה, אפשר גם בשיחה</span></label></div>
   <div class="box">סיסמאות <b>לא</b> כותבים פה. נעשה את זה ביחד בשיחה.</div>
 </div></details>
 
@@ -265,10 +276,34 @@ function text(){const o=read();const L=[];const add=(k,v)=>{if(filled(v))L.push(
   L.push('','*תשלומים*');add('אמצעים',o.pay);add('סליקה/חשבוניות',o.billing);add('תזכורת',o.pay_remind);add('שעות הודעות',o.active_hours);add('רואה חשבון',o.accountant);
   L.push('','*היום*');add('קביעת תורים',o.booking_now);add('אפליקציה/יומן',o.app_now);add('דומיין',o.domain);add('הערות',o.notes);
   L.push('','*מוכן לשיחה*');add('מוכן',o.prep);add('זמן נוח',o.when);
-  L.push('','(תמונות ולוגו שולח בנפרד)');return L.join('\n')}
+  const F=files();L.push('',F.length?`*קבצים שהועלו*: ${F.length}`:'(תמונות ולוגו שולח בנפרד)');return L.join('\n')}
 function toast(m){const e=document.getElementById('toast');e.textContent=m;e.style.display='block';setTimeout(()=>e.style.display='none',2600)}
 async function copy(){try{await navigator.clipboard.writeText(text());toast('הועתק. עכשיו תדביק אצלי בוואטסאפ')}catch(e){prompt('תעתיק:',text())}}
 document.getElementById('copy').onclick=copy;
+const FK=KEY+'-files';let FILES=[];try{FILES=JSON.parse(localStorage.getItem(FK)||'[]')}catch(e){}
+function files(){return FILES.filter(f=>f.url)}
+const canUp=!!(CID&&CK);
+function shrink(file){return new Promise(res=>{if(!/^image\/(jpeg|png|webp|heic|heif)/.test(file.type)||file.size<400000)return res(file);
+  const img=new Image();img.onload=()=>{const m=1600,sc=Math.min(1,m/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>res(b&&b.size<file.size?b:file),'image/jpeg',.85);URL.revokeObjectURL(img.src)};img.onerror=()=>res(file);img.src=URL.createObjectURL(file)})}
+function thumb(row,f,state){const d=document.createElement('div');d.className='th '+(state||'');d.title=f.name;
+  if(f.prev)d.style.backgroundImage=`url(${f.prev})`;else d.textContent=(f.name||'').split('.').pop().slice(0,4);row.insertBefore(d,row.querySelector('.pick'));return d}
+async function upload(kind,file,row){const keepPng=kind=='logo'||/pdf/.test(file.type);const b=keepPng?file:await shrink(file);
+  const prev=/^image/.test(file.type)?URL.createObjectURL(b):'';const t=thumb(row,{name:file.name,prev},'wait');
+  if(b.size>10*1048576){t.className='th bad';toast('הקובץ גדול מדי (עד 10 מגה)');return}
+  try{const r=await fetch(API+encodeURIComponent(CID)+'/file?k='+encodeURIComponent(CK)+'&kind='+kind+'&name='+encodeURIComponent(file.name.slice(0,100)),{method:'POST',headers:{'content-type':b.type||'application/octet-stream'},body:b});
+    const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw 0;
+    t.className='th';FILES.push({kind,name:file.name,url:j.url});try{localStorage.setItem(FK,JSON.stringify(FILES))}catch(e){}
+  }catch(e){t.className='th bad';t.title='לא עלה';toast('משהו לא עלה. נסה שוב, או שלח לי בוואטסאפ')}}
+document.querySelectorAll('.up').forEach(u=>{const kind=u.dataset.kind,max=+u.dataset.max;
+  if(!canUp){u.hidden=true;return}
+  const row=document.createElement('div');row.className='row';u.appendChild(row);
+  const pick=document.createElement('label');pick.className='pick';pick.innerHTML=`+<input type="file" ${max>1?'multiple':''} accept="image/*${u.dataset.pdf?',application/pdf':''}">`;row.appendChild(pick);
+  FILES.filter(f=>f.kind==kind).forEach(f=>thumb(row,{name:f.name}).textContent='✓');
+  pick.querySelector('input').onchange=async e=>{const fs=[...e.target.files];e.target.value='';
+    const left=max-FILES.filter(f=>f.kind==kind).length;if(fs.length>left)toast(`אפשר עד ${max} כאן`);
+    for(const f of fs.slice(0,Math.max(0,left)))await upload(kind,f,row)}});
+if(!canUp)document.querySelectorAll('.nofiles').forEach(b=>b.hidden=false);
 function labels(){const L={};document.querySelectorAll('label').forEach(l=>{const el=l.nextElementSibling;if(el&&el.name&&!L[el.name])L[el.name]=l.childNodes[0].textContent.trim();
   const g=l.nextElementSibling;if(g&&g.classList&&g.classList.contains('chips')){const n=g.querySelector('[name]');if(n&&!L[n.name])L[n.name]=l.childNodes[0].textContent.trim()}});
   DAYS.forEach((d,i)=>L['h'+i]='שעות '+d);L.services='שירותים';L.prep='מוכן לשיחה';L.asst_other='שם אחר לעוזר';L.color='צבע';return L}
@@ -276,7 +311,7 @@ async function post(s){if(!CID||!CK)return false;try{const o=read();const answer
   const r=await fetch(API+encodeURIComponent(CID)+'?k='+encodeURIComponent(CK),{method:'POST',headers:{'content-type':'text/plain'},body:JSON.stringify({answers,labels:labels(),text:s})});
   const j=await r.json().catch(()=>({}));return r.ok&&j.ok}catch(e){return false}}
 document.getElementById('send').onclick=async()=>{const s=text();
-  if(await post(s)){toast('נשלח! קיבלתי את הכל 🙏 את התמונות תשלח לי בוואטסאפ');return}
+  if(await post(s)){toast(files().length?'נשלח! קיבלתי את הכל, כולל התמונות 🙏':'נשלח! קיבלתי את הכל 🙏 את התמונות תשלח לי בוואטסאפ');return}
   if(TO){location.href='https://wa.me/'+TO+'?text='+encodeURIComponent(s);return}
   if(navigator.share){try{await navigator.share({text:s});return}catch(e){if(e.name=='AbortError')return}}
   copy()};
